@@ -7,7 +7,7 @@ class UserController {
         const newUser = {
             name: req.body.name,
             email: req.body.email,
-            password: req.body.password,
+            password: req.body.password
         }
 
         User.create(newUser)
@@ -49,7 +49,7 @@ class UserController {
         }
     }
 
-    // Google Login Nanti Kalau udah sampe client side google
+    // Google Login Nanti Kalau udah sampe client side
 }
 
 module.exports = UserController
