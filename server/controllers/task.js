@@ -1,4 +1,4 @@
-const { Task } = require('../models');
+const { Task, User } = require('../models');
 
 class TaskController{
     static add(req, res, next){
@@ -6,7 +6,7 @@ class TaskController{
 
         const newTask = {
             title: req.body.title,
-            categoryId: req.params.id,
+            categoryId: req.body.categoryId,
             userId
         }
 
@@ -21,7 +21,8 @@ class TaskController{
 
     static edit(req, res, next){
         const updateTask = {
-            title: req.body.title
+            title: req.body.title,
+            categoryId: req.body.categoryId
         }
 
         Task.findByPk(req.params.id)

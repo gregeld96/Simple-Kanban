@@ -3,144 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-signin-client_id" content="660016295050-08v43hb5k8ntdom35hq6n07m72pepnt9.apps.googleusercontent.com">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <link rel="stylesheet" href="output.css">
     <title>Kanban</title>
 </head>
 <body>
-    <section id="login-form">
-        <div id="login-container">
-            <div class="message"></div>
-            <form  class="my-4">
-                <div class="form-group">
-                    <input type="email" class="form-control w-75 pl-3 mx-auto border-0" name="email"
-                        id="email-login" placeholder="example@email.com" />
-                </div>
-                <div class="form-group">
-                    <input type="password" class="form-control pl-3 w-75 mx-auto border-0" name="password"
-                        id="password-login" placeholder="password" />
-                </div>
-                <div class="d-flex justify-content-center">
-                    <button id="btn-login" type="submit" class="btn btn-primary w-75 rounded-lg">Login</button>
-                </div>
-            </form>
-            <p class="text-center">OR</p>
-            <div class="d-flex justify-content-center">
-                <div class="g-signin2 mb-3" data-onsuccess="onSignIn"></div>
-            </div>
-            <div class="d-flex justify-content-center">
-                <p style="cursor: pointer;">Don't have account
-                    ? click here</p>
-            </div>
-        </div>
-    </section>
+    <div id="app"></div>
 
-    <!-- SECTION REGISTER -->
-    <section id="register-form">
-            <div class="text-center" id="register-container">
-                <div class="message"></div>
-                <form class="my-4">
-                    <div class="form-group">
-                        <label for="fullname">Full Name</label>
-                        <input type="text" class="form-control w-75 mx-auto" name="name" id="fullname"
-                            placeholder="John Doe" />
-                    </div>
-                    <div class="form-group">
-                        <label for="email-register">Email</label>
-                        <input type="email" class="form-control w-75 mx-auto" name="email" id="email-register"
-                            placeholder="example@email.com" />
-                    </div>
-                    <div class="form-group">
-                        <label for="password-register">Password</label>
-                        <input type="password" class="form-control w-75 mx-auto" name="password"
-                            id="password-register" placeholder="password" />
-                    </div>
-                    <div class="d-flex justify-content-center">
-                        <button id="btn-register" type="submit" class="btn btn-primary rounded-pill">Submit</button>
-                    </div>
-                </form>
-                <p class="text-center" style="cursor: pointer;">Already have account ?</p>
-            </div>
-    </section>
-
-    <!-- navbar -->
-    <section id="navbar">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-todo"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <a class="navbar-brand"">KANBAN</a>
-                <div class="collapse navbar-collapse" id="navbar-todo">
-                    <div class="my-2 mx-auto">
-                        <button class="btn btn-primary my-2 my-sm-0">Add Category</button>
-                    </div>
-                    <div class="my-2 my-lg-0">
-                        <button class="btn btn-light my-2 my-sm-0">Logout</button>
-                    </div>
-                </div>
-            </div>
-        </nav>
-    </section>
-
-
-    <!-- SECTION Kanban Body -->
-    <div class="row justify-content-around">
-        <div class="card mt-3">
-            <div class="card-header text-center mb-1">
-                Featured
-            </div>
-            <div style="overflow-y:scroll; height:500px;">
-                <div class="my-2 py-3 px-2 border mx-4" style="width: 300px;">
-                    <p>Kita coba dengan bootstrap layout dulu wkwkwkwkwkwkwkwwkwkwwkwk</p>
-                    <small class="text-muted">Last updated 3 mins ago</small>
-                    <div class="pt-4 d-flex justify-content-around">
-                      <img src="https://img.icons8.com/windows/32/000000/edit-file.png"/>
-                      <img src="https://img.icons8.com/windows/32/000000/delete-sign.png"/>
-                    </div>
-                  </div>
-                  <div class="my-2 py-3 px-2 border mx-4" style="width: 300px;">
-                      <p>Kita coba dengan bootstrap layout dulu </p>
-                      <small class="text-muted">gregoriuseldwin96@gmail.com</small>
-                      <div class="pt-4 d-flex justify-content-around">
-                        <img src="https://img.icons8.com/windows/32/000000/edit-file.png"/>
-                        <img src="https://img.icons8.com/windows/32/000000/delete-sign.png"/>
-                      </div>
-                  </div>
-                  <div class="my-2 py-3 px-2 border mx-4" style="width: 300px;">
-                      <p>Kita coba dengan bootstrap layout dulu wkwkwkwkwkwkwkwwkwkww</p>
-                      <small class="text-muted">Last updated 3 mins ago</small>
-                      <div class="pt-4 d-flex justify-content-around">
-                        <img src="https://img.icons8.com/windows/32/000000/edit-file.png"/>
-                        <img src="https://img.icons8.com/windows/32/000000/delete-sign.png"/>
-                      </div>
-                  </div>
-                  <div class="my-2 py-3 px-2 border mx-4" style="width: 300px;">
-                      <p>Kita coba dengan bootstrap layout dulu wkwkwkwkwkwkwkwwkwkwwkwkwkwkwkwkwkwwkwkw</p>
-                      <small class="text-muted">Last updated 3 mins ago</small>
-                      <div class="pt-4 d-flex justify-content-around">
-                        <img src="https://img.icons8.com/windows/32/000000/edit-file.png"/>
-                        <img src="https://img.icons8.com/windows/32/000000/delete-sign.png"/>
-                      </div>
-                  </div>
-                  <div class="my-2 py-3 px-2 border mx-4" style="width: 300px;">
-                    <p>Kita coba dengan bootstrap layout dulu wkwkwkwkwkwkwkwwkwkwwkwkwkwkwkwkwkwwkwkw</p>
-                    <small class="text-muted">Last updated 3 mins ago</small>
-                    <div class="pt-4 d-flex justify-content-around">
-                      <img src="https://img.icons8.com/windows/32/000000/edit-file.png"/>
-                      <img src="https://img.icons8.com/windows/32/000000/delete-sign.png"/>
-                    </div>
-                </div>
-            </div>
-            <div class="card-footer d-flex justify-content-around">
-                <img src="https://img.icons8.com/flat_round/32/000000/plus.png"/>
-            </div>
-        </div>
-    </div>
-    
-
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="main.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.4.0/bootbox.min.js'></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>>
+    <script src="src/main.js"></script>
 </body>
 </html>

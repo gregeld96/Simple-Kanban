@@ -8,7 +8,7 @@ class CategoryController {
 
         Category.create(newCategory)
                 .then(data => {
-                    res.status(201).json({msg: `${data.name} added!`})
+                    res.status(201).json({data, msg: `${data.name} added!`})
                 })
                 .catch(err => {
                     next(err)

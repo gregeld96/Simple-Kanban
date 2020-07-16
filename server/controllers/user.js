@@ -1,22 +1,9 @@
 const { User } = require('../models');
 const { comparePassword } = require('../helpers/bcrypt')
 const { createToken } = require('../helpers/jwt');
+const { OAuth2Client } = require('google-auth-library');
 
 class UserController {
-    static read (req, res, next){
-        User.findAll({
-                    order: [
-                        ['id', 'ASC']
-                    ]
-                })
-                .then(data => {
-                    res.status(200).json(data)
-                })
-                .catch(err => {
-                    next(err)
-                })
-    }
-
     static register(req, res, next){
         const newUser = {
             name: req.body.name,
@@ -64,6 +51,55 @@ class UserController {
     }
 
     // Google Login Nanti Kalau udah sampe client side
+    static googleLogin(req, res, next) {
+        let name = null;
+        let email = null;
+
+        const { id_token } = req.body
+        const CLIENT_ID = process.env.GOOGLE_CLIENT_ID
+        const client = new OAuth2Client(CLIENT_ID);
+        
+        client.verifyIdToken({
+            idToken: id_token,
+            audience: CLIENT_ID
+        })
+        .then(ticket => {
+            name = ticket.getPayload().name;
+            email = ticket.getPayload().email;
+            
+            return User.findOne({where: {email}})
+        })
+        .then(foundUser => {
+            if(foundUser){
+                //login
+                return foundUser
+            } else {
+                const password = Math.random()*1000 + 'goole login password';
+                return User.create({name, email, password})
+            }
+        })
+        .then(user => {
+            const token = createToken({id: user.id, email: user.email});
+            res.status(200).json({token})
+        })
+        .catch(err => {
+            next(err)
+        })
+    }
+
+    static read (req, res, next){
+        User.findAll({
+                    order: [
+                        ['id', 'ASC']
+                    ]
+                })
+                .then(data => {
+                    res.status(200).json(data)
+                })
+                .catch(err => {
+                    next(err)
+                })
+    }
 }
 
 module.exports = UserController
