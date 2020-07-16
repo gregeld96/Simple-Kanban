@@ -1,4 +1,4 @@
-const { Category, Task, User } = require('../models');
+const { Category } = require('../models');
 
 class CategoryController {
     static add (req, res, next){
@@ -19,13 +19,7 @@ class CategoryController {
         Category.findAll({
                     order: [
                         ['id', 'ASC']
-                    ],
-                    include: {
-                        model: Task,
-                        include: {
-                            model:User
-                        }
-                    }
+                    ]
                 })
                 .then(data => {
                     res.status(200).json(data)

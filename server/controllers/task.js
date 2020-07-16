@@ -64,6 +64,20 @@ class TaskController{
                 next(err)
             })
     }
+
+    static read (req, res, next){
+        Task.findAll({
+                    order: [
+                        ['id', 'ASC']
+                    ]
+                })
+                .then(data => {
+                    res.status(200).json(data)
+                })
+                .catch(err => {
+                    next(err)
+                })
+    }
 }
 
 module.exports = TaskController;

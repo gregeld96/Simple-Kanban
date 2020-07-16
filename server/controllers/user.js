@@ -3,6 +3,20 @@ const { comparePassword } = require('../helpers/bcrypt')
 const { createToken } = require('../helpers/jwt');
 
 class UserController {
+    static read (req, res, next){
+        User.findAll({
+                    order: [
+                        ['id', 'ASC']
+                    ]
+                })
+                .then(data => {
+                    res.status(200).json(data)
+                })
+                .catch(err => {
+                    next(err)
+                })
+    }
+
     static register(req, res, next){
         const newUser = {
             name: req.body.name,
