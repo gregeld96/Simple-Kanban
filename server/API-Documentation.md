@@ -1,4 +1,4 @@
-**Fancy Todo**
+**Kanban Simple App**
 ----
 > Kanban App
 
