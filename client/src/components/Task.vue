@@ -10,13 +10,17 @@
 </template>
 
 <script>
-import email from './email'
+import email from './Email'
 export default {
     name: 'task-detail',
     props: ['taskDetail', "user"],
     methods: {
         editBtn(){
-            this.$emit('editTask', this.taskDetail.id)
+            let payload = {
+                data: this.taskDetail,
+                pageName: 'editForm'
+            }
+            this.$emit('editTask', payload)
         },
         deleteBtn(){
             this.$emit('deleteTask', this.taskDetail.id)

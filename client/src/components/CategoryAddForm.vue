@@ -5,7 +5,7 @@
             <div class="message"></div>
             <form class="my-4" @submit.prevent="addCategory">
                 <div class="form-group">
-                    <input type="text" class="form-control w-75 pl-3 mx-auto border-0" v-model="title" />
+                    <input type="text" class="form-control w-75 pl-3 mx-auto border-0" v-model="name" />
                 </div>
                 <div class="d-flex justify-content-center">
                     <button type="submit" class="btn btn-primary w-75 rounded-lg">Add</button>
@@ -20,13 +20,13 @@ export default {
     name: 'category-add-form',
     data() {
         return {
-            title: ' '
+            name: ' '
         }
     },
     methods: {
         addCategory(){
             let payload = {
-                title: this.title
+                name: this.name
             }
             console.log(payload)
             this.$emit('addNewCategory', payload)

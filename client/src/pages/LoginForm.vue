@@ -16,7 +16,9 @@
             </form>
             <p class="text-center">OR</p>
             <div class="d-flex justify-content-center">
-                <div class="g-signin2 mb-3" data-onsuccess="onSignIn"></div>
+                <div id="my-signin2">
+
+                </div>
             </div>
         </div>
     </div>
@@ -37,7 +39,32 @@ export default {
                 password: this.password
             }
             this.$emit('loginUser', payload)
+        },
+        onSuccess(googleUser) {
+            // console.log(googleUser)
+            let id_token = googleUser.getAuthResponse().id_token;
+            // console.log(id_token)
+            this.$emit('google', id_token)
+        },
+        onFailure(error) {
+            console.log(error);
+        },
+        renderButton() {
+            gapi.signin2.render('my-signin2', {
+                'scope': 'profile email',
+                'width': 240,
+                'height': 50,
+                'longtitle': true,
+                'theme': 'dark',
+                'onsuccess': this.onSuccess,
+                'onfailure': this.onFailure
+            });
+            // console.log(gapi.signin2.render)
         }
+    },
+    mounted(){
+        console.log("Ini mounted login form")
+        this.renderButton()
     }
 }
 </script>

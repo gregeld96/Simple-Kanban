@@ -79,8 +79,8 @@ class UserController {
             }
         })
         .then(user => {
-            const token = createToken({id: user.id, email: user.email});
-            res.status(200).json({token})
+            let access_token = createToken({id: user.id, email: user.email});
+            res.status(200).json({access_token})
         })
         .catch(err => {
             next(err)

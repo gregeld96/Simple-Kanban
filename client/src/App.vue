@@ -4,7 +4,7 @@
       <button @click="transitionBtn('login')" type="button" class="btn btn-primary">Login</button>
       <button @click="transitionBtn('register')" type="button" class="btn btn-primary">Register</button>
     </div>
-    <Login v-if="pageName == 'login'" @loginUser="login"></Login>
+    <Login v-if="pageName == 'login'" @loginUser="login" @google='google'></Login>
     <Register v-else-if="pageName == 'register'" @registerUser='register'></Register>
     <Main v-else @logout='logout'></Main>
   </div>
@@ -14,7 +14,7 @@
 import Main from './pages/Main'
 import Login from './pages/LoginForm'
 import Register from './pages/Register'
-import axios from 'axios'
+import axios from './config/axios'
 export default {
   name: 'App',
   components: {
@@ -35,7 +35,7 @@ export default {
     login(payload){
       axios({
         method: 'POST',
-        url: 'http://localhost:3000/login',
+        url: '/login',
         data: {
           email: payload.email,
           password: payload.password 
@@ -43,7 +43,6 @@ export default {
       })
         .then(data => {
           localStorage.setItem('access_token', data.data.access_token)
-          // console.log(data.data)
           this.pageName = ''
           this.seen = false
         })
@@ -54,7 +53,7 @@ export default {
     register(payload){
       axios({
         method: 'POST',
-        url: 'http://localhost:3000/register',
+        url: '/register',
         data: {
           name: payload.name,
           email: payload.email,
@@ -69,10 +68,37 @@ export default {
         })
     },
     logout(payload){
-      this.pageName = payload
-      localStorage.clear()
-      this.seen = true
-    }
+      this.signOut().then(() => {
+        console.log('User signed out.');
+        this.pageName = payload
+        this.seen = true
+        localStorage.clear()
+        sessionStorage.clear()
+      });
+    },
+    google(payload){
+      console.log(payload)
+      axios({
+        method: 'POST',
+        url: '/google',
+        data: {
+          id_token: payload
+        }
+      })
+        .then(data => {
+          console.log(data)
+          localStorage.setItem('access_token', data.data.access_token)
+          this.pageName = ''
+          this.seen = false
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    signOut() {
+      var auth2 = gapi.auth2.getAuthInstance();
+      return auth2.signOut()
+    },
   }
 };
 </script>

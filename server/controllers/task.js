@@ -20,9 +20,13 @@ class TaskController{
     }
 
     static edit(req, res, next){
+        const userId = req.userData.id
+        
         const updateTask = {
+            id: req.params.id,
             title: req.body.title,
-            categoryId: req.body.categoryId
+            categoryId: req.body.categoryId,
+            userId
         }
 
         Task.findByPk(req.params.id)
