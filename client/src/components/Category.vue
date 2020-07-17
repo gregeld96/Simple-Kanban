@@ -54,7 +54,6 @@ export default {
                 title: this.title,
                 categoryId: this.category.id
             }
-            console.log(payload)
             this.$emit('addNewTask', payload)
             this.title = ''
             this.pageName = 'addBtn'

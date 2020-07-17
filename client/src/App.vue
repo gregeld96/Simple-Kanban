@@ -47,7 +47,7 @@ export default {
           this.seen = false
         })
         .catch(err => {
-          console.log(err)
+          bootbox.alert(err.response.data.msg)
         })
     },
     register(payload){
@@ -64,7 +64,7 @@ export default {
           this.pageName = 'login'
         })
         .catch(err => {
-          console.log(err)
+          bootbox.alert(err.response.data.msg)
         })
     },
     logout(payload){
@@ -77,7 +77,6 @@ export default {
       });
     },
     google(payload){
-      console.log(payload)
       axios({
         method: 'POST',
         url: '/google',
@@ -86,13 +85,12 @@ export default {
         }
       })
         .then(data => {
-          console.log(data)
           localStorage.setItem('access_token', data.data.access_token)
           this.pageName = ''
           this.seen = false
         })
         .catch(err => {
-          console.log(err)
+          bootbox.alert(err.response.data.msg)
         })
     },
     signOut() {

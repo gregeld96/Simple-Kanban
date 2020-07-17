@@ -35,7 +35,6 @@ export default {
                 title: this.title,
                 selected: this.selected
             }
-            console.log(payload)
             this.$emit('updatedTask', payload)
         }
     },

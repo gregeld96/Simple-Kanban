@@ -41,9 +41,7 @@ export default {
             this.$emit('loginUser', payload)
         },
         onSuccess(googleUser) {
-            // console.log(googleUser)
             let id_token = googleUser.getAuthResponse().id_token;
-            // console.log(id_token)
             this.$emit('google', id_token)
         },
         onFailure(error) {
@@ -59,11 +57,9 @@ export default {
                 'onsuccess': this.onSuccess,
                 'onfailure': this.onFailure
             });
-            // console.log(gapi.signin2.render)
         }
     },
     mounted(){
-        console.log("Ini mounted login form")
         this.renderButton()
     }
 }

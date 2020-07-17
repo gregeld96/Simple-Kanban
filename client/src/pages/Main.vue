@@ -1,7 +1,6 @@
 <template>
     <div>
         <Navbar @homePage='homeBtn' @addCategory='addForm' @logout='logoutUser'></Navbar>
-        <ErrorMessage v-show="seen" :error='error'></ErrorMessage>
         <div v-if="pageName == 'home'" class="row justify-content-around">
                 <Category 
                     v-for="category in categories" 
@@ -24,7 +23,6 @@ import Category from '../components/Category'
 import AddCategory from '../components/CategoryAddForm'
 import EditTask from '../components/EditTaskForm'
 import Navbar from '../components/Navbar'
-import ErrorMessage from '../components/ErrorMessage'
 import axios from '../config/axios'
 export default {
     name: 'Main',
@@ -34,8 +32,6 @@ export default {
             task: [],
             users: [],
             taskDetail: {},
-            error: '',
-            seen: false,
             pageName: 'home'
         }
     },
@@ -101,8 +97,7 @@ export default {
                 this.task.push(data.data.data)
             })
             .catch(err => {
-                    this.error = err.response.data.msg
-                    this.seen = true
+                    bootbox.alert(err.response.data.msg)
                 })
         },
         addForm(payload){
@@ -125,22 +120,17 @@ export default {
                 this.pageName = "home"
             })
             .catch(err => {
-                console.log(err.response)
-                this.error = err.response.data.msg
-                this.seen = true
+                bootbox.alert(err.response.data.msg)
             })
         },
         homeBtn(payload){
             this.pageName = payload;
-            this.seen = false
         },
         logoutUser(payload){
             this.$emit('logout', payload)
-            this.seen = false
         },
         deleteTask(payload){
             bootbox.confirm("Are you sure?", (result) => {
-                console.log(result)
                 if(result){
                     axios({
                         method: 'DELETE',
@@ -150,24 +140,12 @@ export default {
                         }
                     })
                     .then(_=> {
-                        console.log(this.task)
                         let index = this.task.findIndex(el => el.id == payload)
-                        // for (let i = 0; i < this.task.length; i++){
-                        //     console.log(this.task[i])
-                        //     if(this.task[i].id == payload){
-                        //         index = i
-                        //         break
-                        //     }
-                        // }
-                        
-                        console.log('Berhasil', '====setelah splice')
                         this.task.splice(index, 1)
                         this.pageName = 'home'
                     })
                     .catch(err => {
-                        console.log('error')
-                            this.error = err.response.data.msg
-                            this.seen = true
+                        bootbox.alert(err.response.data.msg)
                     })
                 }
             })
@@ -176,7 +154,6 @@ export default {
         editTask(payload){
             this.pageName = payload.pageName
             this.taskDetail = payload.data
-            this.seen = false
         },
         updateTask(payload){
             axios({
@@ -196,9 +173,7 @@ export default {
                     this.pageName = 'home'
                 })
                 .catch(err => {
-                    console.log(err)
-                    this.error = err.response.data.msg
-                    this.seen = true
+                    bootbox.alert(err.response.data.msg)
                 })
         }
     },
@@ -211,8 +186,7 @@ export default {
         Category,
         Navbar,
         AddCategory,
-        EditTask,
-        ErrorMessage
+        EditTask
     }
 }
 </script>

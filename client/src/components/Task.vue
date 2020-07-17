@@ -3,8 +3,8 @@
         <p>{{ taskDetail.title}}</p>
         <email v-for="list in userDetail" :key="list.id" :userDetail="list"></email>
         <div class="pt-4 d-flex justify-content-around">
-          <img @click='editBtn' src="https://img.icons8.com/windows/32/000000/edit-file.png"/>
-          <img @click='deleteBtn' src="https://img.icons8.com/windows/32/000000/delete-sign.png"/>
+          <img style="cursor: pointer;" @click='editBtn' src="https://img.icons8.com/windows/32/000000/edit-file.png"/>
+          <img style="cursor: pointer;" @click='deleteBtn' src="https://img.icons8.com/windows/32/000000/delete-sign.png"/>
         </div>
     </div>
 </template>

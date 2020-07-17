@@ -25,15 +25,12 @@ export default {
     name: "Navbar",
     methods: {
         addCategoryBtn(payload){
-            // console.log(payload)
             this.$emit('addCategory', payload)
         },
         homeBtn(payload){
-            // console.log(payload)
             this.$emit('homePage', payload)
         },
         logoutBtn(payload){
-            //console.log(payload)
             this.$emit('logout', payload)
         }
     }

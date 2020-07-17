@@ -28,7 +28,6 @@ export default {
             let payload = {
                 name: this.name
             }
-            console.log(payload)
             this.$emit('addNewCategory', payload)
         }
     }
