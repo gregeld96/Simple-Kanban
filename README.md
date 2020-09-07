@@ -1,51 +1,565 @@
-# Kanban Amsterdam Fox
+**Kanban Simple App**
+----
+> Kanban App
+* This Kanban was created using Vue JS as the front end technology with Node Js as the main back end technology where the PostgreSQL as the RDMS for the whole app and Sequelize as the ORM
 
-Buatlah aplikasi Kanban menggunakan client-server model dengan spesifikasi sebagai berikut:
+* **URL**
 
-### 1. API Documentation (server) yang meliputi:
-- URL(s)
-- HTTP Method
-- Request
-- Response (success dan error)
-- Membuat routes sesuai standar REST API
+  >To Login into the app <br />
+  `/login`
 
-### 2. CRUD endpoints untuk Task, dimana minimal inputnya memiliki:
-- title
-- category
+* **Method:**
 
-### 3. Register dan Login
-Berikan atribut Organization pada User, dengan default value “Hacktiv8”. Atribut ini ditambahkan pada server sehingga akan ter-input secara otomatis ketika user baru didaftarkan dan default value tidak boleh diubah dengan value lain selain “Hacktiv8”. (Note: Untuk case ini kegunaan organization tersebut akan terlihat ketika kalian mengerjakan socket. Ketika terjadi perubahan pada task, maka semua user yang online dan 1 organisasi akan dapat melihat perubahannya. Jika ada pertanyaan lebih lanjut mengenai hal ini, bisa tanyakan instruktur :) )
+  `POST`
 
-### 4. Membuat authorization sehingga user hanya bisa melakukan UD terhadap task-nya sendiri
+* **Data Params**
 
-### 5. Melakukan Read pada semua card yang tersedia(authentication)
+  **Required:**
+ 
+   `email = [string]`<br />
+   `password = [string]`
 
-### 6. Social Login (Google/Twitter/Facebook/GitHub)
+* **Success Response:**
+  
+  **Code:** 200 OK <br />
+  **Content:** 
+    ```json
+    {
+      "token": [string],
+      "msg": "User successfully logined!"
+    }
+    ```
+ 
+* **Error Response:**
 
-### 7. No alert()!!!
-### 8. Deploy ke Heroku(server) + Firebase (client) Hosting
+  * **Code:** 400 Bad Request<br />
+    **Content:**
+    ```json
+      {
+        "msg": "email and password required for login"
+      }
+    ```
+    OR
+    ```json
+      {
+        "msg": "Username or Password Invalid"
+      }
+    ```
 
-## Rocket 🚀
-- Buat Kanban Board kamu menjadi real time menggunakan socket.io
+<br />
 
-### Kompetensi Backend
-- REST API
-- API Documentation
-- Auth
-- PostgreSQL + Sequelize
+* **URL**
 
-### Kompetensi Client
-- Vue.js
-- SPA (Single Page Application)
+  >To Login into the app qith goggle account <br />
+  `/google`
 
-## Deadline
-> Week 2 - Jumat 23:59
+* **Method:**
 
-### Contoh
+  `POST`
 
-https://kamvan-6aa69.firebaseapp.com/
-https://kanban-83af9.firebaseapp.com/
+* **Data Params**
 
-### Submission
-Fork dari organization, lalu open pull request dengan title NAMA LENGKAP KAMU (ex: Dimitri Wahyudiputra) dan assign ke buddy kamu jika sudah selesai. Tambahkan comment yang berisi environment variables yang dipakai (beserta valuenya), link deploy (jika ada), fitur tambahannya apa dan kendala saat mengerjakan.
+  **Required:**
+ 
+   `id_token = [string]`
 
+* **Success Response:**
+  
+  **Code:** 200 OK <br />
+  **Content:** 
+    ```json
+    {
+      "token": [string],
+      "msg": "User successfully logined!"
+    }
+    ```
+ 
+* **Error Response:**
+
+    * **Code:** 500 INTERNAL SERVER ERROR<br />
+    **Content:** `{ msg }`
+
+<br />
+
+* **URL**
+
+  >To register a user <br />
+  `/register`
+
+* **Method:**
+
+  `POST`
+
+* **Data Params**
+
+  **Required:**
+ 
+   `name = [string]`<br />
+   `email = [string]`<br />
+   `password = [string]`
+
+* **Success Response:**
+  
+  **Code:** 201 Created <br />
+  **Content:** 
+    ```json
+    {
+      "name": [register.name],
+      "msg": [register.name] "successfully registered!"
+    }
+    ```
+ 
+* **Error Response:**
+
+  * **Code:** 400 Bad Request<br />
+    **Content:**
+    ```json
+      {
+        "msg": "Name cannot be empty,Email cannot be empty,Please use the right email format,Password cannot be empty"
+      }
+
+      OR
+
+      {
+        "msg": "Email already exist!"
+      }
+    ```
+
+<br />
+
+* **URL**
+
+  > To get all the user list <br />
+  `/`
+
+* **Method:**
+
+  `GET`
+
+* **Request Header:**
+
+  ```json
+    {
+      "access_token": < user token >
+    }
+    ```
+
+* **Success Response:**
+
+  * **Code:** 200 OK <br />
+    **Content:** 
+    ```json
+    [
+        {
+          "id": [integer],
+          "title": [string],
+          "email": [string],
+          "password": [string],
+          "organization": [string],
+          "createdAt": [date],
+          "updatedAt": [date]
+        }
+    ]
+    ```
+ 
+* **Error Response:**
+
+    * **Code:** 400 BAD REQUEST <br />
+    **Content:** 
+    ```json
+    {
+      "msg": "token invalid!"
+    }
+    ```
+
+    OR
+
+    * **Code:** 500 INTERNAL SERVER ERROR<br />
+    **Content:** `{ msg }`
+
+<br />
+
+* **URL**
+
+  > To get all the task list <br />
+  `/tasks`
+
+* **Method:**
+
+  `GET`
+
+* **Request Header:**
+
+  ```json
+    {
+      "access_token": < user token >
+    }
+    ```
+
+* **Success Response:**
+
+  * **Code:** 200 OK <br />
+    **Content:** 
+    ```json
+    {
+      "todos": [
+        {
+          "id": [integer],
+          "title": [string],
+          "userId": [string],
+          "categoryId": [string],
+          "createdAt": [date],
+          "updatedAt": [date]
+        }
+      ]
+    }
+    ```
+ 
+* **Error Response:**
+
+    * **Code:** 400 BAD REQUEST <br />
+    **Content:** 
+    ```json
+    {
+      "msg": "token invalid!"
+    }
+    ```
+
+    OR
+
+    * **Code:** 500 INTERNAL SERVER ERROR<br />
+    **Content:** `{ msg }`
+
+<br />
+
+* **URL**
+
+  > To add a task <br />
+  `/tasks/add`
+
+* **Method:**
+
+  `POST`
+
+* **Request Header:**
+
+  ```json
+    {
+      "access_token": < user token >
+    }
+    ```
+
+* **Data Params**
+
+  **Required:**
+ 
+   `title = [string]`
+
+* **Success Response:**
+  
+  **Code:** 201 Created <br />
+  **Content:** 
+    ```json
+    {
+      "data": [
+        {
+          "id": [integer],
+          "title": [string],
+          "userId": [string],
+          "categoryId": [string],
+          "createdAt": [date],
+          "updatedAt": [date]
+        }
+      ]
+    }
+    ```
+ 
+* **Error Response:**
+
+  * **Code:** 400 BAD REQUEST <br />
+    **Content:** 
+    ```json
+    {
+      "msg": "Please fill up the title/description of task"
+    }
+
+    OR
+
+    {
+      "msg": "token invalid!"
+    }
+    ```
+
+  OR
+
+  * **Code:** 500 INTERNAL SERVER ERROR<br />
+    **Content:** `{ msg }`
+
+<br />
+
+* **URL**
+
+  >To update the specific task <br />
+  `/tasks/:id`
+
+* **Method:**
+
+  `PUT`
+
+*  **URL Params** 
+
+   **Required:**
+ 
+   `id=[integer]`
+
+* **Request Header:**
+
+  ```json
+    {
+      "access_token": < user token >
+    }
+  ```
+
+* **Data Params**
+
+  **Required:**
+ 
+   `title: [string]` <br/ >
+   `categoryId: [integer]`
+
+* **Success Response:**
+  
+  **Code:** 200 OK <br />
+  **Content:** 
+    ```json
+    {
+      "task": {
+        "id": [integer],
+        "title": [string],
+        "categoryId": [integer],
+        "userId": [integer]
+      }
+    }
+    ```
+ 
+* **Error Response:**
+
+  * **Code:** 400 BAD REQUEST <br />
+    **Content:** 
+    ```json
+    {
+      "msg": "Please fill up the title/description of task"
+    }
+
+    OR
+
+    {
+      "msg": "token invalid!"
+    }
+    ```
+
+  OR
+
+  * **Code:** 403 Forbidden<br />
+    **Content:**
+    ```json
+      {
+        "msg": "You are not Authorized!"
+      }
+    ```
+
+  OR
+  
+  * **Code:** 404 Not Found<br />
+    **Content:**
+    ```json
+      {
+        "msg": "Data not found"
+      }
+    ```
+
+  OR
+
+  * **Code:** 500 INTERNAL SERVER ERROR<br />
+    **Content:** `{ msg }`
+
+<br />
+
+* **URL**
+
+  >To delete the specific task <br />
+  `/tasks/:id`
+
+* **Method:**
+
+  `DELETE`
+
+*  **URL Params** 
+
+   **Required:**
+ 
+   `id=[integer]`
+
+* **Request Header:**
+
+  ```json
+    {
+      "access_token": < user token >
+    }
+    ```
+
+* **Success Response:**
+  
+  **Code:** 200 OK <br />
+  **Content:** 
+    ```json
+    {
+      "msg": "Task successful deleted"
+    }
+    ```
+ 
+* **Error Response:**
+
+  * **Code:** 400 Bad Request<br />
+    **Content:**
+    ```json
+      {
+        "msg": "token invalid!"
+      }
+    ```
+    
+  * **Code:** 403 Forbidden<br />
+    **Content:**
+    ```json
+      {
+        "msg": "You are not Authorized!"
+      }
+    ```
+
+  OR
+
+  * **Code:** 404 Not Found<br />
+    **Content:**
+    ```json
+      {
+        "msg": "Data not found"
+      }
+    ```
+  
+  OR
+  
+  * **Code:** 500 INTERNAL SERVER ERROR<br />
+    **Content:** `{ msg }`
+
+<br />
+
+* **URL**
+
+  > To get all the category <br />
+  `/categories`
+
+* **Method:**
+
+  `GET`
+
+* **Request Header:**
+
+  ```json
+    {
+      "access_token": < user token >
+    }
+    ```
+
+* **Success Response:**
+
+  * **Code:** 200 OK <br />
+    **Content:** 
+    ```json
+   [
+        {
+          "id": [integer],
+          "name": [string],
+          "createdAt": [date],
+          "updatedAt": [date]
+        }
+    ]
+
+    ```
+ 
+* **Error Response:**
+
+    * **Code:** 400 BAD REQUEST <br />
+    **Content:** 
+    ```json
+    {
+      "msg": "token invalid!"
+    }
+    ```
+
+    OR
+
+    * **Code:** 500 INTERNAL SERVER ERROR<br />
+    **Content:** `{ msg }`
+
+<br />
+
+* **URL**
+
+  > To add a category <br />
+  `/categories/add`
+
+* **Method:**
+
+  `POST`
+
+* **Request Header:**
+
+  ```json
+    {
+      "access_token": < user token >
+    }
+    ```
+
+* **Data Params**
+
+  **Required:**
+ 
+   `name = [string]`
+
+* **Success Response:**
+  
+  **Code:** 201 Created <br />
+  **Content:** 
+    ```json
+    {
+      "data": [
+        {
+          "id": [integer],
+          "name": [string],
+          "createdAt": [date],
+          "updatedAt": [date]
+        }
+      ]
+    }
+    ```
+ 
+* **Error Response:**
+
+  * **Code:** 400 BAD REQUEST <br />
+    **Content:** 
+    ```json
+    {
+      "msg": "Please fill up the title/description of task"
+    }
+
+    OR
+
+    {
+      "msg": "token invalid!"
+    }
+    ```
+
+  OR
+
+  * **Code:** 500 INTERNAL SERVER ERROR<br />
+    **Content:** `{ msg }`
